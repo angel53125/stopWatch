@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         Button btnPause = (Button) findViewById(R.id.btnPause);
         Button btnReset = (Button) findViewById(R.id.btnReset);
 
+
         if(savedInstanceState != null)
         {
             offset = savedInstanceState.getLong(OFFSET_KEY);
@@ -111,6 +112,52 @@ public class MainActivity extends AppCompatActivity {
         savedInstanceState.putLong(OFFSET_KEY,offset);
         savedInstanceState.putBoolean(RUNNING_KEY,running);
         savedInstanceState.putLong(BASE_KEY,stopwatch.getBase());
+    }
+
+
+    /*
+    @Override
+    protected void onStop()
+    {
+        super.onStop();
+        if(running) {
+            saveOffset();
+            stopwatch.stop();
+        }
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        if (running) {
+            setBaseTime();
+            stopwatch.start();
+            offset=0;
+        }
+    }
+    */
+
+    @Override
+    protected void onPause()
+     {
+         super.onPause();
+         if(running)
+         {
+             saveOffset();
+             stopwatch.stop();
+         }
+     }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        if(running)
+        {
+            setBaseTime();
+            stopwatch.start();
+            offset = 0;
+        }
     }
 
 }
